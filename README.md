@@ -1,27 +1,28 @@
-Here are some loose guidlines meant to give you an idea of what information we expect to find in each repository. Feel free to present your documentation in the most accessible/suitable order and style but you **must** include project data relating to the headings below, if relevant to your project. Also, include your final proposal in the top directory.
+#Ultrasonic Plant Height System (UPHS)
+![UPHS banner](Images/banner.jpg)
+![team](Images/UPHS_team.png)
 
-[**A very good example**](https://github.com/Biological-Microsystems-Laboratory/micropipette)
+##Synopsis
+Plant height is a key trait studied in breeding and research programs. Measurements in the field are time-consuming as they require manual measurements with several replicates.  The UPHS is a phenotyping device that provides a significant improvement in sampling time and sample size. It uses low-cost ultrasonic sensors to screen the field canopy and obtain an accurate biological sample of this trait.
+![UPHS gif](Images/UPHS.gif)
 
-Consider using [GitHub for desktop](https://desktop.github.com/), the user interface and experience is so much better than the web version of Github, in my opinion.
+##Software
+TBA
 
-Lastly, follow [these](https://pages.github.com/) instructions if you want to style your github repository into a webpage like [so](https://biomakers.github.io/Example-repo/).
+##Hardware
+The UHPS will use an Arduino microcontroller and ultrasonic sensors to acquire plant height data. The ultrasonic sensor will emit a sound wave that will bounce back from the canopy. An initial read or manual input can be used as baseline (sensor height from the ground). This will be possible using a screen and at least three buttons. Once height zero is stored, we can calculate height from each data point and average a value from hundreds of data points collected in just a few seconds.
 
-## Synopsis
+##Installation, Maintenance and Testing Guide
+TBA
 
-A summary of your project. This is the 150 word description from your proposal. Include your project banner and photos of team members.
+##License
+    MIT License
 
-## Software
+	Copyright (c) 2017 Oscar E. Gonzalez-Navarro, Ricardo H. Ramirez-Gonzalez, Marcela Mendoza-Suarez, Carolina Ramirez, & Luis Hernan
 
-Explain functionality of software components (if any) as concisely as possible, developers should be able to figure out how your project solves their problem by looking at the code example. Ideally, this should be pseudo code or an abstract graphical representation of your code e.g entity relationship diagram. Consider adding a screenshot of your User Interface.
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-## Hardware
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-Explain how the hardware components (if any) of your project function as concisely as possible, including a short description of fabrication and assembly. Component suppliers and part numbers should be provided separately in a bill of materials, in a 'Hardware Folder'.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-## Installation, Maintenance and Testing Guide
-
-Provide instructions on usage, describe a test scheme and show how to run the tests with code and hardware configuration examples with some representative results.
-
-## License
-
-A short snippet describing the license (MIT, Apache, etc.) you have chosen to use
