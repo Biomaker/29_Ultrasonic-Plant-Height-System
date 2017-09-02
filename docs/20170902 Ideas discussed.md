@@ -60,7 +60,8 @@ We need to display a screen to setup the height of the initial messurments
 
 ![Setup ](./UIMocks/BedHeight.svg)
 
-Then, for each messurment a display with the current messure and the average of them is shown. The bars on the left represent different heights, and the ticker is the bar. 
+Then, for each messurment a display with the current messure and the average of them is shown. The bars on the left represent different heights, and the ticker is the bar.
+
 ![Setup ](./UIMocks/MessurMockUp.svg)
  
 
