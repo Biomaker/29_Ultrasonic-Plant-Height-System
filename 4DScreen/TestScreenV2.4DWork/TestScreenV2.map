@@ -1,21 +1,20 @@
-linked : 5     main 000086
+linked : 5     main 00006A
  stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
-   74:000086    75:00008c    76:000095    77:00009e    78:0000a7    79:0000b0    80:0000b8    81:0000be 
-   84:0000c9    88:0000d2    89:0000e3    90:0000f1    94:000102    96:00010c    97:000112    99:000112 
-  100:00011d   102:000125   103:000132   104:00013a 
+   59:00006a    60:000070    61:000079    62:000082    63:00008b    64:000094    65:00009c    66:0000a2 
+   70:0000ad    71:0000b3    72:0000b3    73:0000be    75:0000c6    76:0000d3    77:0000db 
 
 skipped: 4     setN ----
-linked : 3     increaseN 000144
+linked : 3     increaseN 0000E5
  stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
-   56:000144    57:00014d 
+   47:0000e5    48:0000ee 
 
-linked : 2     startupElements 000165
+linked : 2     startupElements 000106
  stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
-   26:000165    27:00016e    29:000174    35:00017a    43:000186    45:000190    46:00019a    48:0001a8 
-   49:0001b2    50:0001c9 
+   26:000106    27:000117    28:000125    30:000136    32:000140    34:000146    35:000152    37:00015c 
+   38:000166    40:000174    41:00017e    42:000195 
 
-linked : 1     ledDigitsDisplay 0001D2
+linked : 1     ledDigitsDisplay 00019E
  stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
-    3:0001d4     4:0001e1     5:0001e9     6:0001f3     7:0001fe     8:000216     9:000225    10:000237 
-   11:00023f    13:000248    16:00024e    17:00025c    18:000270 
+    3:0001a0     4:0001ad     5:0001b5     6:0001bf     7:0001ca     8:0001e2     9:0001f1    10:000203 
+   11:00020b    13:000214    16:00021a    17:000228    18:00023c 
 
