@@ -5234,7 +5234,7 @@ file F:\Documents\public_code\29_Ultrasonic-Plant-Height-System\4DScreen\TestScr
 
 005223  000011  #inherit "TestScreenV2Const.inc"
 005224  000011  #inherit "TestScreenV2Const.inc"
-005225  000001  // File generated 09/09/2017 05:56:27
+005225  000001  // File generated 09/09/2017 09:29:50
 005226  000002  // Warning! This is a generated file, any manual changes will be
 005227  000003  // lost during the next generation.
 005228  000004        
@@ -5278,67 +5278,91 @@ file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\ledDigitsDisplay.i
 005264  000019  var btnSendState;
 005265  000020  var btnPressed;
 005266  000021  var isTouched;
-005267  000022        
-005268  000023        
-005269  000024  func startupElements()
-005270  000025        
-005271  000026      hFontx := file_LoadImageControl("TESTSC~2.dan", "TESTSC~2.gcn", 1); // Open handle to access uSD fonts, uncomment if required and change n to font number dropping a and c if > 9
-005272  000027      hstrings := file_Open("TESTSC~2.txf", 'r') ; // Open handle to access uSD strings, uncomment if required
-005273  000028      hndl := file_LoadImageControl("TESTSC~2.dat", "TESTSC~2.gci", 1);
-005274  000029        
-005275  000030      gfx_Set(SCREEN_MODE,LANDSCAPE) ;
-005276  000031        
-005277  000032      btnSendState := 0    ;
+005267  000022  var comRX[200];
+005268  000023  var comTX[200];
+005269  000024  var buffer[2];
+005270  000025  var format;
+005271  000026        
+005272  000027        
+005273  000028  func startupComm()
+005274  000029      com_Init(comRX,1024,0);
+005275  000030      com_SetBaud(COM0,960);
+005276  000031      com_TXbuffer(comTX, 100, 0);
+005277  000032  endfunc
 005278  000033        
-005279  000034      img_ClearAttributes(hndl, iSend, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-005280  000035      img_Show(hndl,ilabelN) ;
-005281  000036        
-005282  000037      img_Show(hndl, iSend);  // show button1136,6,only do this once
-005283  000038      img_SetWord(hndl, iSend, IMAGE_INDEX, btnSendState); // where state is 0 for up and 1 for down
-005284  000039        
-005285  000040      img_Show(hndl, iledN);  // show all digits at 0, only do this once
-005286  000041      ledDigitsDisplay(n, iledN+1, 200, 3, 1, 36, 0) ;
-005287  000042      touch_Set(TOUCH_ENABLE);
-005288  000043        
+005279  000034        
+005280  000035  func sendIntSerial(var number)
+005281  000036      to(COM0);
+005282  000037      var p;
+005283  000038      buffer[0] := "Count: ";
+005284  000039      buffer[1] := number;
+005285  000040      format := "%*s%d\n";
+005286  000041      p := str_Ptr (buffer);
+005287  000042        
+005288  000043      str_Printf (&p, format);
 005289  000044  endfunc
 005290  000045        
-005291  000046  func increaseN()
-005292  000047      n := n+1;
-005293  000048      ledDigitsDisplay(n, iledN+1, 200, 3, 1,36, 0) ;
-005294  000049  endfunc
-005295  000050        
-005296  000051  func setN( var val)
-005297  000052      n := val    ;
-005298  000053      ledDigitsDisplay(n, iledN+1, 200, 3, 1, 36, 0) ;
-005299  000054  endfunc
+005291  000046  func startupElements()
+005292  000047      gfx_Cls();
+005293  000048      hFontx := file_LoadImageControl("TESTSC~2.dan", "TESTSC~2.gcn", 1); // Open handle to access uSD fonts, uncomment if required and change n to font number dropping a and c if > 9
+005294  000049      hstrings := file_Open("TESTSC~2.txf", 'r') ; // Open handle to access uSD strings, uncomment if required
+005295  000050      hndl := file_LoadImageControl("TESTSC~2.dat", "TESTSC~2.gci", 1);
+005296  000051        
+005297  000052      gfx_Set(SCREEN_MODE,LANDSCAPE) ;
+005298  000053        
+005299  000054      btnSendState := 0    ;
 005300  000055        
-005301  000056  func main()
-005302  000057        
-005303  000058   // Uncomment the following if uSD images, fonts or strings used.
-005304  000059   n:=0;
-005305  000060      putstr("Mounting...\n");
-005306  000061      if (!(file_Mount()))
-005307  000062          while(!(file_Mount()))
-005308  000063              putstr("Drive not mounted...");
-005309  000064              pause(200);
-005310  000065              gfx_Cls();
-005311  000066              pause(200);
-005312  000067          wend
-005313  000068      endif
-005314  000069        
-005315  000070      startupElements();
-005316  000071      repeat
-005317  000072          isTouched := touch_Get(TOUCH_STATUS);
-005318  000073          if(isTouched == TOUCH_RELEASED  )
-005319  000074        
-005320  000075              btnPressed := img_Touched(hndl, iSend);
-005321  000076              if(btnPressed == iSend)
-005322  000077                 increaseN();
-005323  000078              endif
-005324  000079          endif
-005325  000080      forever
-005326  000081  endfunc
-005327  000082        
+005301  000056      img_ClearAttributes(hndl, iSend, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+005302  000057      img_Show(hndl,ilabelN) ;
+005303  000058        
+005304  000059      img_Show(hndl, iSend);  // show button1136,6,only do this once
+005305  000060      img_SetWord(hndl, iSend, IMAGE_INDEX, btnSendState); // where state is 0 for up and 1 for down
+005306  000061        
+005307  000062      img_Show(hndl, iledN);  // show all digits at 0, only do this once
+005308  000063      ledDigitsDisplay(n, iledN+1, 200, 3, 1, 36, 0) ;
+005309  000064      touch_Set(TOUCH_ENABLE);
+005310  000065        
+005311  000066  endfunc
+005312  000067        
+005313  000068  func increaseN()
+005314  000069      n := n+1;
+005315  000070      ledDigitsDisplay(n, iledN+1, 200, 3, 1,36, 0);
+005316  000071      sendIntSerial(n);
+005317  000072  endfunc
+005318  000073        
+005319  000074  func setN( var val)
+005320  000075      n := val    ;
+005321  000076      ledDigitsDisplay(n, iledN+1, 200, 3, 1, 36, 0) ;
+005322  000077  endfunc
+005323  000078        
+005324  000079  func main()
+005325  000080        
+005326  000081   // Uncomment the following if uSD images, fonts or strings used.
+005327  000082   n:=0;
+005328  000083      putstr("Mounting...\n");
+005329  000084      if (!(file_Mount()))
+005330  000085          while(!(file_Mount()))
+005331  000086              putstr("Drive not mounted...");
+005332  000087              pause(200);
+005333  000088              gfx_Cls();
+005334  000089              pause(200);
+005335  000090          wend
+005336  000091      endif
+005337  000092        
+005338  000093      startupElements();
+005339  000094      startupComm();
+005340  000095      repeat
+005341  000096          isTouched := touch_Get(TOUCH_STATUS);
+005342  000097          if(isTouched == TOUCH_RELEASED  )
+005343  000098        
+005344  000099              btnPressed := img_Touched(hndl, iSend);
+005345  000100              if(btnPressed == iSend)
+005346  000101                 increaseN();
+005347  000102              endif
+005348  000103          endif
+005349  000104      forever
+005350  000105  endfunc
+005351  000106        
 Notice: no execution path to func 'setN'
 
 
@@ -5494,6 +5518,7 @@ BREAK                              65533  0x0000fffd (const dword)  (not used)
 BROWN                              41285  0x0000a145 (const dword)  (not used)
 btnPressed                            12  0x0000000c (mem) word (global)  (usage 6)
 btnSendState                          10  0x0000000a (mem) word (global)  (usage 6)
+buffer                               816  0x00000330 (mem) word[2] (global)  (usage 9)
 BURLYWOOD                          56784  0x0000ddd0 (const dword)  (not used)
 bus_ClearPins                       -119  0xffffff89 (PmmC func) args[1] r=0  (not used)
 BUS_RD_PIN                             4  0x00000004 (const dword)  (not used)
@@ -5516,7 +5541,7 @@ CHR                                  129  0x00000081 (const dword)  (not used)
 CLIPPING                              19  0x00000013 (const dword)  (not used)
 COLOUR16                               0  0x00000000 (const dword)  (not used)
 COLOUR8                                1  0x00000001 (const dword)  (not used)
-COM0                               63492  0x0000f804 (const dword)  (not used)
+COM0                               63492  0x0000f804 (const dword)  (usage 6)
 COM1                               63493  0x0000f805 (const dword)  (not used)
 com1_Count                          -249  0xffffff07 (PmmC func) args[0] r=1  (not used)
 com1_Error                          -257  0xfffffeff (PmmC func) args[0] r=1  (not used)
@@ -5571,19 +5596,21 @@ com3_TXemptyEvent                   -275  0xfffffeed (PmmC func) args[1] r=1  (n
 com_Count                           -248  0xffffff08 (PmmC func) args[0] r=1  (not used)
 com_Error                           -256  0xffffff00 (PmmC func) args[0] r=1  (not used)
 com_Full                            -252  0xffffff04 (PmmC func) args[0] r=1  (not used)
-com_Init                            -232  0xffffff18 (PmmC func) args[3] r=0  (not used)
+com_Init                            -232  0xffffff18 (PmmC func) args[3] r=0  (usage 3)
 com_InitBrk                         -577  0xfffffdbf (PmmC func) args[3] r=0  (not used)
 com_Mode                            -280  0xfffffee8 (PmmC func) args[4] r=1  (not used)
 com_Reset                           -244  0xffffff0c (PmmC func) args[0] r=0  (not used)
 com_RXblock                         -282  0xfffffee6 (PmmC func) args[2] r=0  (not used)
-com_SetBaud                         -225  0xffffff1f (PmmC func) args[2] r=1  (not used)
+com_SetBaud                         -225  0xffffff1f (PmmC func) args[2] r=1  (usage 3)
 com_Sync                            -260  0xfffffefc (PmmC func) args[0] r=1  (not used)
 com_TXblock                         -281  0xfffffee7 (PmmC func) args[2] r=0  (not used)
-com_TXbuffer                        -264  0xfffffef8 (PmmC func) args[3] r=0  (not used)
+com_TXbuffer                        -264  0xfffffef8 (PmmC func) args[3] r=0  (usage 3)
 com_TXbufferBrk                     -573  0xfffffdc3 (PmmC func) args[3] r=0  (not used)
 com_TXbufferHold                    -276  0xfffffeec (PmmC func) args[1] r=1  (not used)
 com_TXcount                         -268  0xfffffef4 (PmmC func) args[0] r=1  (not used)
 com_TXemptyEvent                    -272  0xfffffef0 (PmmC func) args[1] r=1  (not used)
+comRX                                 16  0x00000010 (mem) word[200] (global)  (usage 3)
+comTX                                416  0x000001a0 (mem) word[200] (global)  (usage 3)
 CONTRAST                              25  0x00000019 (const dword)  (not used)
 CORAL                              64490  0x0000fbea (const dword)  (not used)
 CORNFLOWERBLUE                     25789  0x000064bd (const dword)  (not used)
@@ -5865,6 +5892,7 @@ FONT_9                                 9  0x00000009 (const dword)  (not used)
 FONT_ID                                2  0x00000002 (const dword)  (not used)
 FONT_SIZE                              2  0x00000002 (const dword)  (not used)
 FORESTGREEN                         9284  0x00002444 (const dword)  (not used)
+format                               820  0x00000334 (mem) word (global)  (usage 6)
 FRAME_DELAY                           22  0x00000016 (const dword)  (not used)
 FUCHSIA                            63519  0x0000f81f (const dword)  (not used)
 GAINSBORO                          57083  0x0000defb (const dword)  (not used)
@@ -5897,7 +5925,7 @@ GFX_CLIP_TOP                         112  0x00000070 (const dword)  (not used)
 GFX_CLIP_TOP_VAL                     108  0x0000006c (const dword)  (not used)
 gfx_Clipping                        -186  0xffffff46 (PmmC func) args[1] r=1  (not used)
 gfx_ClipWindow                      -150  0xffffff6a (PmmC func) args[4] r=0  (not used)
-gfx_Cls                             -126  0xffffff82 (PmmC func) args[0] r=0  (usage 3)
+gfx_Cls                             -126  0xffffff82 (PmmC func) args[0] r=0  (usage 6)
 gfx_Contrast                        -192  0xffffff40 (PmmC func) args[1] r=1  (not used)
 gfx_Dot                             -145  0xffffff6f (PmmC func) args[0] r=0  (not used)
 gfx_Ellipse                         -153  0xffffff67 (PmmC func) args[5] r=0  (not used)
@@ -6135,7 +6163,7 @@ img_SetWord                         -379  0xfffffe85 (PmmC func) args[4] r=1  (u
 img_Show                            -381  0xfffffe83 (PmmC func) args[2] r=1  (usage 12)
 img_Touched                         -384  0xfffffe80 (PmmC func) args[2] r=1  (usage 3)
 IMG_WIDTH                             82  0x00000052 (const dword)  (not used)
-increaseN                            229  0x000000e5 (User func) args[0] r=0  (usage 3)
+increaseN                            250  0x000000fa (User func) args[0] r=0  (usage 3)
 INDIANRED                          51947  0x0000caeb (const dword)  (not used)
 INDIGO                             18448  0x00004810 (const dword)  (not used)
 INVERSE                               64  0x00000040 (const dword)  (not used)
@@ -6160,7 +6188,7 @@ LANDSCAPE_R                            1  0x00000001 (const dword)  (not used)
 LAVENDER                           59199  0x0000e73f (const dword)  (not used)
 LAVENDERBLUSH                      65438  0x0000ff9e (const dword)  (not used)
 LAWNGREEN                          32736  0x00007fe0 (const dword)  (not used)
-ledDigitsDisplay                     414  0x0000019e (User func) args[7] r=0  (usage 8)
+ledDigitsDisplay                     543  0x0000021f (User func) args[7] r=0  (usage 8)
 LEFT_POS                               2  0x00000002 (const dword)  (not used)
 LEMONCHIFFON                       65497  0x0000ffd9 (const dword)  (not used)
 LIGHTBLUE                          44764  0x0000aedc (const dword)  (not used)
@@ -6206,7 +6234,7 @@ M_PA7                                128  0x00000080 (const dword)  (not used)
 M_PA8                                256  0x00000100 (const dword)  (not used)
 M_PA9                                512  0x00000200 (const dword)  (not used)
 MAGENTA                            63519  0x0000f81f (const dword)  (not used)
-main                                 106  0x0000006a (User func) args[0] r=0  (not used)
+main                                 121  0x00000079 (User func) args[0] r=0  (not used)
 MAROON                             32768  0x00008000 (const dword)  (not used)
 MAX                                  -55  0xffffffc9 (PmmC func) args[2] r=1  (not used)
 MDA                                63552  0x0000f840 (const dword)  (not used)
@@ -6254,7 +6282,7 @@ MIN                                  -54  0xffffffca (PmmC func) args[2] r=1  (n
 MINTCREAM                          63487  0x0000f7ff (const dword)  (not used)
 MISTYROSE                          65340  0x0000ff3c (const dword)  (not used)
 MOCCASIN                           65334  0x0000ff36 (const dword)  (not used)
-n                                      2  0x00000002 (mem) word (global)  (usage 19)
+n                                      2  0x00000002 (mem) word (global)  (usage 22)
 NAVAJOWHITE                        65269  0x0000fef5 (const dword)  (not used)
 NAVY                                  16  0x00000010 (const dword)  (not used)
 NOTOUCH                                0  0x00000000 (const dword)  (not used)
@@ -6455,6 +6483,7 @@ SCREEN_MODE                           23  0x00000017 (const dword)  (usage 3)
 SEAGREEN                           11338  0x00002c4a (const dword)  (not used)
 SEASHELL                           65469  0x0000ffbd (const dword)  (not used)
 SEED                                 -61  0xffffffc3 (PmmC func) args[1] r=0  (not used)
+sendIntSerial                        449  0x000001c1 (User func) args[1] r=0  (usage 3)
 serin                               -236  0xffffff14 (PmmC func) args[0] r=1  (not used)
 serin1                              -237  0xffffff13 (PmmC func) args[0] r=1  (not used)
 serin2                              -238  0xffffff12 (PmmC func) args[0] r=1  (not used)
@@ -6570,7 +6599,8 @@ spiflash_SIG                        -538  0xfffffde6 (PmmC func) args[2] r=1  (n
 spiflash_Write                      -544  0xfffffde0 (PmmC func) args[4] r=1  (not used)
 SPRINGGREEN                         2031  0x000007ef (const dword)  (not used)
 SQRT                                 -62  0xffffffc2 (PmmC func) args[1] r=1  (not used)
-startupElements                      262  0x00000106 (User func) args[0] r=0  (usage 3)
+startupComm                          505  0x000001f9 (User func) args[0] r=0  (usage 3)
+startupElements                      291  0x00000123 (User func) args[0] r=0  (usage 3)
 STEELBLUE                          17430  0x00004416 (const dword)  (not used)
 STR                                  128  0x00000080 (const dword)  (not used)
 str_ByteMove                        -487  0xfffffe19 (PmmC func) args[3] r=1  (not used)
@@ -6589,8 +6619,8 @@ str_GetWord                         -476  0xfffffe24 (PmmC func) args[1] r=1  (n
 str_Length                          -483  0xfffffe1d (PmmC func) args[1] r=1  (not used)
 str_Match                           -479  0xfffffe21 (PmmC func) args[2] r=1  (not used)
 str_MatchI                          -480  0xfffffe20 (PmmC func) args[2] r=1  (not used)
-str_Printf                          -484  0xfffffe1c (PmmC func) args[2] r=1  (not used)
-str_Ptr                             -470  0xfffffe2a (PmmC func) args[1] r=1  (usage 3)
+str_Printf                          -484  0xfffffe1c (PmmC func) args[2] r=1  (usage 3)
+str_Ptr                             -470  0xfffffe2a (PmmC func) args[1] r=1  (usage 6)
 str_PutByte                         -477  0xfffffe23 (PmmC func) args[2] r=0  (not used)
 str_PutWord                         -478  0xfffffe22 (PmmC func) args[2] r=0  (not used)
 strheight                            -14  0xfffffff2 (PmmC func) args[0] r=1  (not used)
@@ -6666,7 +6696,7 @@ TMR4                                  40  0x00000028 (const dword)  (not used)
 TMR5                                  41  0x00000029 (const dword)  (not used)
 TMR6                                  42  0x0000002a (const dword)  (not used)
 TMR7                                  43  0x0000002b (const dword)  (not used)
-to                                    -1  0xffffffff (PmmC func) args[1] r=0  (usage 3)
+to                                    -1  0xffffffff (PmmC func) args[1] r=0  (usage 6)
 tolower                              -46  0xffffffd2 (PmmC func) args[1] r=1  (not used)
 TOMATO                             64264  0x0000fb08 (const dword)  (not used)
 TOP_POS                                3  0x00000003 (const dword)  (not used)

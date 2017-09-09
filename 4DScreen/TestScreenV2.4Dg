@@ -19,10 +19,32 @@ var hnd1;
 var btnSendState;
 var btnPressed;
 var isTouched;
+var comRX[200];
+var comTX[200];
+var buffer[2];
+var format;
 
+
+func startupComm()
+    com_Init(comRX,1024,0);
+    com_SetBaud(COM0,960);
+    com_TXbuffer(comTX, 100, 0);
+endfunc
+
+
+func sendIntSerial(var number)
+    to(COM0);
+    var p;
+    buffer[0] := "Count: ";
+    buffer[1] := number;
+    format := "%*s%d\n";
+    p := str_Ptr (buffer);
+
+    str_Printf (&p, format);
+endfunc
 
 func startupElements()
-
+    gfx_Cls();
     hFontx := file_LoadImageControl("TESTSC~2.dan", "TESTSC~2.gcn", 1); // Open handle to access uSD fonts, uncomment if required and change n to font number dropping a and c if > 9
     hstrings := file_Open("TESTSC~2.txf", 'r') ; // Open handle to access uSD strings, uncomment if required
     hndl := file_LoadImageControl("TESTSC~2.dat", "TESTSC~2.gci", 1);
@@ -45,7 +67,8 @@ endfunc
 
 func increaseN()
     n := n+1;
-    ledDigitsDisplay(n, iledN+1, 200, 3, 1,36, 0) ;
+    ledDigitsDisplay(n, iledN+1, 200, 3, 1,36, 0);
+    sendIntSerial(n);
 endfunc
 
 func setN( var val)
@@ -68,6 +91,7 @@ func main()
     endif
 
     startupElements();
+    startupComm();
     repeat
         isTouched := touch_Get(TOUCH_STATUS);
         if(isTouched == TOUCH_RELEASED  )
