@@ -1,0 +1,8 @@
+"Send" 0000 0000 74 AC
+"Leddigits1" 4A00 0000 C8 14
+"iLeddigits1" 6C00 0000 C8 14
+"labelAVG" AE00 0000 68 20
+"labelN" C200 0000 AC 48
+"ledN" C600 0000 C8 48
+"iledN" E400 0000 C8 48
+"ReadyLED" 4800 0001 CC 7C
