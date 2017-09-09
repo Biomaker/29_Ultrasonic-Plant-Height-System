@@ -1,0 +1,188 @@
+==============================================================
+==============================================================
+4DGL Compiler 2.8.1.0 -- Copyright 2004-2016 4D Labs
+** F:\Documents\public_code\29_Ultrasonic-Plant-Height-System\4DScreen\TestScreenV2.4dg
+compiled Sat Sep 09 07:11:02 2017
+
+==============================================================
+==============================================================
+
+
+No Ref for file
+[LINKING]
+function 5, main(main entry point), address 0x86, stack usage 0 + 4 
+
+val                                    1  word     [arg]  (usage 2)
+
+[LINKING]
+function 3, increaseN, address 0x144, stack usage 0 + 4 
+
+[LINKING]
+function 2, startupElements, address 0x165, stack usage 0 + 4 
+
+[LINKING]
+function 1, ledDigitsDisplay, address 0x1d2, stack usage 14 + 4 
+num                                    4  word[4]  [local]  (usage 6)
+newval                                 1  word     [arg]  (usage 3)
+Digits                                 2  word     [arg]  (usage 9)
+left                                   2  word     [arg]  (usage 3)
+index                                  1  word     [arg]  (usage 9)
+MinDigits                              3  word     [arg]  (usage 3)
+LeadingBlanks                          4  word     [arg]  (usage 6)
+WidthDigit                             3  word     [arg]  (usage 3)
+i                                      1  word     [local]  (usage 15)
+k                                      2  word     [local]  (usage 12)
+l                                      3  word     [local]  (usage 12)
+
+[RESERVED WORDS]
+#inherit
+#LISTCODE
+#MODE
+#STACK
+#OPTIMIZE_ON
+#OPTIMIZE_OFF
+byte
+word
+dword
+float
+private
+#IF
+#IFNOT
+#ELSE
+#ENDIF
+#CONST
+#constant
+#USE
+USING
+func
+endfunc
+var
+#STOP
+#DATA
+#ASM
+#END
+#platform
+EXISTS
+#ERROR
+#MESSAGE
+#NOTICE
+sizeof
+argcount
+if
+else
+endif
+while
+wend
+repeat
+until
+forever
+return
+break
+continue
+for
+next
+switch
+case
+default
+endswitch
+print
+goto
+gosub
+endsub
+mcall
+lookup8
+lookup16
+
+[MACRO]
+
+[CONSTANTS]
+__MAXMEM                          00008000      32768  (usage 1)
+__MAXPROG                         00007FEE      32750  (usage 1)
+DIABLO                            00000003          3  (usage 3)
+I_TOUCH_DISABLE                   00000020         32  (usage 3)
+ilabelN                           00000004          4  (usage 3)
+iledN                             00000005          5  (usage 11)
+IMAGE_INDEX                       00000009          9  (usage 6)
+IMAGE_XPOS                        00000002          2  (usage 3)
+iSend                             00000000          0  (usage 15)
+LANDSCAPE                         00000000          0  (usage 3)
+SCREEN_MODE                       00000017         23  (usage 3)
+TOUCH_ENABLE                      00000000          0  (usage 3)
+TOUCH_RELEASED                    00000002          2  (usage 3)
+TOUCH_STATUS                      00000000          0  (usage 3)
+
+[PmmC FUNCTIONS]
+file_LoadImageControl             FFFFFE3D        -451  args=3 r=1  (usage 6)
+file_Mount                        FFFFFE3C        -452  args=0 r=1  (usage 6)
+file_Open                         FFFFFE52        -430  args=2 r=1  (usage 3)
+gfx_Cls                           FFFFFF82        -126  args=0 r=0  (usage 6)
+gfx_Set                           FFFFFF83        -125  args=2 r=0  (usage 3)
+img_ClearAttributes               FFFFFE81        -383  args=3 r=1  (usage 3)
+img_SetWord                       FFFFFE85        -379  args=4 r=1  (usage 9)
+img_Show                          FFFFFE83        -381  args=2 r=1  (usage 12)
+img_Touched                       FFFFFE80        -384  args=2 r=1  (usage 3)
+pause                             FFFFFFFA          -6  args=1 r=0  (usage 6)
+putnum                            FFFFFFF9          -7  args=2 r=1  (usage 3)
+putstr                            FFFFFFF7          -9  args=1 r=1  (usage 12)
+str_GetByte                       FFFFFE25        -475  args=1 r=1  (usage 3)
+str_Ptr                           FFFFFE2A        -470  args=1 r=1  (usage 3)
+to                                FFFFFFFF          -1  args=1 r=0  (usage 3)
+touch_Get                         FFFFFE68        -408  args=1 r=1  (usage 3)
+touch_Set                         FFFFFE69        -407  args=1 r=0  (usage 3)
+
+[USER FUNCTIONS]
+increaseN                         00000144  args=0 r=0  (usage 3)
+ledDigitsDisplay                  000001D2  args=7 r=0  (usage 8)
+startupElements                   00000165  args=0 r=0  (usage 3)
+
+[GLOBAL VARIABLES]
+btnPressed                             7  word       (usage 6)
+btnSendState                           6  word       (usage 6)
+hFontx                                 4  word       (usage 3)
+hndl                                   1  word       (usage 30)
+hstrings                               3  word       (usage 3)
+isTouched                              8  word       (usage 6)
+n                                      2  word       (usage 19)
+
+[PRIVATE VARIABLES]
+
+[DATA]
+0007: 4D 6F 75 6E 74 69 6E 67 2E 2E 2E 0A 00 44 72 69     Mounting.....Dri
+0017: 76 65 20 6E 6F 74 20 6D 6F 75 6E 74 65 64 2E 2E     ve not mounted..
+0027: 2E 00 4D 6F 75 6E 74 65 64 0A 00 54 45 53 54 53     ..Mounted..TESTS
+0037: 43 7E 32 2E 64 61 6E 00 54 45 53 54 53 43 7E 32     C~2.dan.TESTSC~2
+0047: 2E 67 63 6E 00 54 45 53 54 53 43 7E 32 2E 74 78     .gcn.TESTSC~2.tx
+0057: 66 00 54 45 53 54 53 43 7E 32 2E 64 61 74 00 54     f.TESTSC~2.dat.T
+0067: 45 53 54 53 43 7E 32 2E 67 63 69 00 53 74 61 72     ESTSC~2.gci.Star
+0077: 74 69 6E 67 55 70 45 6C 65 6D 65 6E 74 73 00        tingUpElements.
+
+[__MAXPROG]
+32750
+[__MAXMEM]
+32768
+
+[PROGRAM]
+main
+[CODESIZE]
+641
+[MEMSIZE]
+8
+[ARGCOUNT]
+0
+[RETURNS]
+NO
+[STACKSIZE]
+0 (AUTO)
+[STACK_ESTIMATE]
+34   (nb:- worst case estimate)
+[MODE]
+0
+
+[PROJECT]
+F:\Documents\public_code\29_Ultrasonic-Plant-Height-System\4DScreen\TestScreenV2.4dg
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\Gen4-uLCD-32DT.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\Diablo16_Functions.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\4DGL_16bitColours.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\VisualConst.inc
+F:\Documents\public_code\29_Ultrasonic-Plant-Height-System\4DScreen\TestScreenV2.4DWork\TestScreenV2Const.inc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\ledDigitsDisplay.inc

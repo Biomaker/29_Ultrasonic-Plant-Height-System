@@ -1,0 +1,121 @@
+#platform "Gen4-uLCD-32DT"
+// 4Dbutton1 1.0 generated 09/09/2017 03:48:26
+
+
+// Program Skeleton 1.3 generated 09/09/2017 03:47:26
+
+#inherit "4DGL_16bitColours.fnc"
+
+#inherit "VisualConst.inc"
+
+#inherit "TestScreenV2Const.inc"
+
+#inherit "ledDigitsDisplay.inc"
+
+var n;
+var hstrings ; // Handle to access uSD strings, uncomment if required
+var hFontx ;   // Handle to access uSD fonts, uncomment if required and change n to font number
+var hnd1;
+var btnSendState;
+var btnPressed;
+var isTouched;
+
+
+func startupElements()
+    // ledN 1.0 generated 09/09/2017 04:25:31
+    putstr("StartingUpElements");
+    gfx_Cls();
+
+    btnSendState := 0    ;
+
+
+    // Send 1.0 generated 09/09/2017 05:07:46
+    //
+
+    img_ClearAttributes(hndl, iSend, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+
+
+
+
+
+
+    // labelN 1.0 generated 09/09/2017 06:35:05
+    img_Show(hndl,ilabelN) ;
+
+    img_Show(hndl, iSend);  // show button1136,6,only do this once
+    img_SetWord(hndl, iSend, IMAGE_INDEX, btnSendState); // where state is 0 for up and 1 for down
+
+    img_Show(hndl, iledN);  // show all digits at 0, only do this once
+    ledDigitsDisplay(n, iledN+1, 200, 3, 1, 36, 0) ;
+    touch_Set(TOUCH_ENABLE);
+
+
+endfunc
+
+func increaseN()
+    n := n+1;
+     ledDigitsDisplay(n, iledN+1, 200, 3, 1,36, 0) ;
+
+   //img_ClearAttributes(hndl, iSend, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+
+    //img_Show(hndl, iSend);  // show button, only do this once
+    //img_SetWord(hndl, iSend, IMAGE_INDEX, btnSendState); // where state is 0 for up and 1 for down
+
+endfunc
+
+func setN( var val)
+    n := val    ;
+    ledDigitsDisplay(n, iledN+1, 200, 3, 1, 36, 0) ;
+endfunc
+
+func main()
+
+ // Uncomment the following if uSD images, fonts or strings used.
+ n:=0;
+    putstr("Mounting...\n");
+    if (!(file_Mount()))
+        while(!(file_Mount()))
+            putstr("Drive not mounted...");
+            pause(200);
+            gfx_Cls();
+            pause(200);
+        wend
+    endif
+    putstr("Mounted\n");
+//    gfx_TransparentColour(0x0020);    // uncomment if transparency required
+//    gfx_Transparency(ON);             // uncomment if transparency required
+
+    hFontx := file_LoadImageControl("TESTSC~2.dan", "TESTSC~2.gcn", 1); // Open handle to access uSD fonts, uncomment if required and change n to font number dropping a and c if > 9
+    hstrings := file_Open("TESTSC~2.txf", 'r') ; // Open handle to access uSD strings, uncomment if required
+    hndl := file_LoadImageControl("TESTSC~2.dat", "TESTSC~2.gci", 1);
+
+
+
+    gfx_Set(SCREEN_MODE,LANDSCAPE) ;
+
+    startupElements();
+    repeat
+        //pause(1000);
+        isTouched := touch_Get(TOUCH_STATUS);
+        if(isTouched == TOUCH_RELEASED  )
+
+            btnPressed := img_Touched(hndl, iSend);
+            if(btnPressed == iSend)
+               increaseN();
+            endif
+        endif
+
+
+       //btnPressed := img_Touched(hndl, iSend);
+       //if(btnPressed == iSend)
+        //print("iWinbutton1 is touched");
+       //  increaseN();
+        //endif
+      // if(btnPressed == -1)
+       //     //print("Touch is outside iSend\n");
+        //    //print(b
+        //endif
+
+    forever
+endfunc
+

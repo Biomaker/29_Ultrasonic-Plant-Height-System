@@ -1,0 +1,148 @@
+﻿Version     0.0
+Platform    Gen4-uLCD-32DT-L
+PlatRes     240x320
+Depends
+end
+Options
+    Visualizer
+    Speed                        9600
+    Checksum                     No
+    ResponseSize                 2
+    Multidrop                    No
+    Destination                  0
+    DestBank                     0
+    MainForm                     0
+    SndBuf                       0
+    ButtonDisable                No
+    SignedDigits                 No
+end
+Form
+    Name                         Form1
+    Alias                        Form1
+    Bgtype                       Color
+    Color                        BLACK
+    Image                        (None)
+    Source.Height                0
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 0
+    OnActivate                   ''
+    OnCreate                     ''
+    OnRepeat                     ''
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+4Dbutton
+    Name                         Send
+    Alias                        btnSend
+    Height                       48
+    Left                         116
+    Matrix                       -1
+    Momentary                    On
+    Size                         48x48
+    Style                        Red
+    Top                          172
+    Type                         Button01
+    Width                        48
+    OnChanged                    ''
+end
+LedDigits
+    Name                         Leddigits1
+    Alias                        Leddigits1
+    Color                        BLACK
+    Decimals                     2
+    Digits                       5
+    Height                       35
+    LeadingZero                  Yes
+    Left                         200
+    OutlineColor                 BLACK
+    Palette.High                 clLime
+    Palette.Low                  0x005100
+    Top                          20
+    Width                        120
+    OnChanged                    ''
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+StaticText
+    Name                         labelAVG
+    Alias                        lavelAVG
+    Alignment                    Left
+    AutoSize                     Yes
+    Caption                      Average
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    18
+    Font.Style                   []
+    Height                       29
+    Left                         104
+    Top                          32
+    Transparent                  Yes
+    Width                        87
+    WordWrap                     Yes
+end
+StaticText
+    Name                         labelN
+    Alias                        labelN
+    Alignment                    Left
+    AutoSize                     Yes
+    Caption                      N
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    18
+    Font.Style                   []
+    Height                       29
+    Left                         172
+    Top                          72
+    Transparent                  Yes
+    Width                        16
+    WordWrap                     Yes
+end
+LedDigits
+    Name                         ledN
+    Alias                        ledN
+    Color                        BLACK
+    Decimals                     0
+    Digits                       3
+    Height                       35
+    LeadingZero                  Yes
+    Left                         200
+    OutlineColor                 BLACK
+    Palette.High                 clLime
+    Palette.Low                  0x005100
+    Top                          72
+    Width                        108
+    OnChanged                    ''
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Led
+    Name                         ReadyLED
+    Alias                        ReadyLED
+    Active                       No
+    Caption                      Ready
+    Color                        BLACK
+    Font.Color                   clWhite
+    Font.Effects                 []
+    Font.Name                    Arial
+    Font.Size                    8
+    Font.Style                   []
+    Glyphs                       (None)
+    Height                       22
+    Layout                       Left
+    LedType                      Rounded
+    Left                         204
+    Palette.High                 clRed
+    Palette.Low                  0x000051
+    Spacing                      5
+    Top                          124
+    Width                        50
+    OnChanged                    ''
+end
