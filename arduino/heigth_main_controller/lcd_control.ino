@@ -1,9 +1,16 @@
 #include "rgb_lcd.h"
 rgb_lcd lcd;
+#define MAX_DELAY 100
 
+
+#define btnDELETE    1
+#define btnSELECT 4
+#define btnNONE   5
+#define MIN_HEIGHT 500
+#define MAX_HEIGHT 2000
 
 void lcd_print(int line, const char * text){
-  lcd.setCursor(0,line);
+  lcd.setCursor(0, line);
   lcd.print(text);
 }
 
@@ -33,25 +40,82 @@ void lcd_print_measuring(){
   lcd_print(0, "Measuring...");
 }
 
+int lcd_read_button(){
+  
+  if(button_is_pressed(BUTTON_DELETE   ) ) return btnDELETE;
+  if(button_is_pressed(BUTTON_SELECT) ) return btnSELECT;
+  return btnNONE;  // when all others fail, return this...
+}
+
+float lcd_get_baseline_height(){
+  bool accepted = false;
+  bool pressed = false;
+  float value_cm;
+  int lcd_key;
+  char result[8]; // Buffer big enough for 7-character float
+  
+  value_cm = sonic_sensor_meassure();
+  lcd.clear();
+  lcd_print(0, "Baseline height");
+  lcd_print(1, "          cm" );
+  dtostrf(value_cm, 6, 2, result); // Leave room for too large numbers!
+  lcd_print(1, result);
+
+  while(!accepted){
+    lcd_key = lcd_read_button();
+    Serial.print("\n");
+    Serial.print(lcd_key);
+    //lcd_pressed_button();
+    switch (lcd_key){
+       case btnDELETE:{
+        value_cm = sonic_sensor_meassure();
+        dtostrf(value_cm, 6, 2, result); 
+        lcd_print(1, result);
+        break;
+      }
+      case btnSELECT:{
+        accepted=true;
+        break;
+      }
+      case btnNONE:{
+        break;
+      }
+    } 
+  }
+  return value_cm;
+}
+
+void lcd_print_int_as_float(int value){
+   float val = (float)value / 10.0;
+   lcd.setCursor(0,1);
+   lcd.print("       ");
+   lcd.setCursor(0,1);
+   if(val < 100.0){
+     lcd.print(" ");
+   }
+   lcd.print(val);
+}
+
 
 bool lcd_print_distance(float distance){
   bool readed = false;
   bool result = false;
+  int lcd_key;
   lcd.clear();
   lcd.print("Save? ");
   lcd.print(distance); 
   lcd.setCursor(0,1);
   lcd.print("(Y:up/N:down)");
-  /*
+  
   while(!readed){
     lcd_key = lcd_read_button();
     switch(lcd_key){
-      case btnUP:{
+      case btnSELECT:{
         result = true;
         readed = true;
         break;
       }
-      case btnDOWN:{
+      case btnDELETE:{
         readed = true;
       }
     }
@@ -62,11 +126,10 @@ bool lcd_print_distance(float distance){
   if(result){
     lcd.print("Saving          ");
   }else{
-   lcd.print("Discarded       ");
+    lcd.print("Discarded       ");
   }
   lcd.setCursor(0,1);
   lcd.print(distance);
-  //display_pressed_button();
-  */
+
   return result;
 }

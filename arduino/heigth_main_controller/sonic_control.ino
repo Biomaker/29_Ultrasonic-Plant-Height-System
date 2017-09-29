@@ -82,9 +82,6 @@ bool sonic_sensor_is_buffer_empty(){
   return SONIC_BUFFER_USED == 0;
 }
 
-bool sonic_sensor_is_buffer_overflow(){
-  return SONIC_BUFFER_OVERFLOW;
-}
 
 float sonic_sensor_average(){
   if(SONIC_BUFFER_AVG_STORED){
@@ -94,18 +91,8 @@ float sonic_sensor_average(){
   quicksort(SONIC_BUFFER, 0, SONIC_BUFFER_USED - 1);
   int drop = SONIC_BUFFER_USED * 0.1;
   
-  int i;
-  float sum = 0;
-  float count = 0;
-  for(i = drop; i < SONIC_BUFFER_USED - drop; i++){
-    sum += (float)SONIC_BUFFER[i] /STORE_PRECISION;
-    count++;
-  }
-  float diff = sum/count ;
-  
-  SONIC_BUFFER_AVG = diff ;
   SONIC_BUFFER_AVG_STORED = true;
-  return SONIC_BUFFER_AVG;
+  return SONIC_BUFFER[SONIC_BUFFER_USED/2] / 100.0;
 }
 
 void sonic_sensor_set_offset(float offset){
