@@ -19,7 +19,7 @@ var hnd1;
 var btnSendState;
 var btnPressed;
 var isTouched;
-var comRX[200];
+var comRX[1024];
 var comTX[200];
 var buffer[2];
 var format;
@@ -27,7 +27,7 @@ var format;
 
 func startupComm()
     com_Init(comRX,1024,0);
-    com_SetBaud(COM0,960);
+    com_SetBaud(COM0,11520);
     com_TXbuffer(comTX, 100, 0);
 endfunc
 
@@ -61,6 +61,17 @@ func startupElements()
 
     img_Show(hndl, iledN);  // show all digits at 0, only do this once
     ledDigitsDisplay(n, iledN+1, 200, 3, 1, 36, 0) ;
+
+
+    // labelAVG 1.0 generated 16/09/2017 10:52:08
+    img_Show(hndl,ilabelAVG) ;
+
+
+    // Leddigits1 1.0 generated 16/09/2017 10:52:28
+   // img_Show(hndl, iLeddigits1);  // show all digits at 0, only do this once
+ //   ledDigitsDisplay(numx, iLeddigits1+1, 200, 5, 3, 24, 0) ;
+
+
     touch_Set(TOUCH_ENABLE);
 
 endfunc

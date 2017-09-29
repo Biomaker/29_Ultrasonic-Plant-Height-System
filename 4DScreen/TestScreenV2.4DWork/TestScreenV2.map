@@ -1,28 +1,28 @@
 linked : 7     main 000079
  stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
-   82:000079    83:00007f    84:000088    85:000091    86:00009a    87:0000a3    88:0000ab    89:0000b1 
-   93:0000bc    94:0000c2    95:0000c8    96:0000c8    97:0000d3    99:0000db   100:0000e8   101:0000f0 
+   93:000079    94:00007f    95:000088    96:000091    97:00009a    98:0000a3    99:0000ab   100:0000b1 
+  104:0000bc   105:0000c2   106:0000c8   107:0000c8   108:0000d3   110:0000db   111:0000e8   112:0000f0 
 
 skipped: 6     setN ----
 linked : 5     increaseN 0000FA
  stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
-   69:0000fa    70:000103    71:00011a 
+   80:0000fa    81:000103    82:00011a 
 
 linked : 4     startupElements 000123
  stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
    47:000123    48:000129    49:00013a    50:000148    52:000159    54:000163    56:000169    57:000175 
-   59:00017f    60:000189    62:000197    63:0001a1    64:0001b8 
+   59:00017f    60:000189    62:000197    63:0001a1    67:0001b8    75:0001c2 
 
-linked : 3     sendIntSerial 0001C1
+linked : 3     sendIntSerial 0001CB
  stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
-   36:0001c1    38:0001ca    39:0001d2    40:0001d9    41:0001e1    43:0001ed 
+   36:0001cb    38:0001d4    39:0001dc    40:0001e3    41:0001eb    43:0001f7 
 
-linked : 2     startupComm 0001F9
+linked : 2     startupComm 000203
  stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
-   29:0001f9    30:000206    31:000212 
+   29:000203    30:000210    31:00021c 
 
-linked : 1     ledDigitsDisplay 00021F
+linked : 1     ledDigitsDisplay 00022A
  stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
-    3:000221     4:00022e     5:000236     6:000240     7:00024b     8:000263     9:000272    10:000284 
-   11:00028c    13:000295    16:00029b    17:0002a9    18:0002bd 
+    3:00022c     4:000239     5:000241     6:00024b     7:000256     8:00026e     9:00027d    10:00028f 
+   11:000297    13:0002a0    16:0002a6    17:0002b4    18:0002c8 
 
