@@ -22,7 +22,7 @@ float read_distance_cm(int trigger, int echo){
   
   float distance;
   digitalWrite(trigger,LOW);
-  delayMicroseconds(5);
+  delayMicroseconds(50);
  
   // Start Measurement
   digitalWrite(trigger,HIGH);
@@ -41,7 +41,9 @@ float sonic_sensor_meassure(){
   sonic_sensor_clear_buffer();
   for(i = 0; i < DEFAULT_MESSURES; i ++){
     sonic_sensor_read(0);
+    delay(200);
   }
+  sonic_sensor_print_reads();
   return sonic_sensor_average();
 }
 
@@ -84,9 +86,7 @@ bool sonic_sensor_is_buffer_empty(){
 
 
 float sonic_sensor_average(){
-  if(SONIC_BUFFER_AVG_STORED){
-    return (float) SONIC_BUFFER_AVG;
-  }
+ 
   //return (float) SONIC_BUFFER_AVG;
   quicksort(SONIC_BUFFER, 0, SONIC_BUFFER_USED - 1);
   int drop = SONIC_BUFFER_USED * 0.1;

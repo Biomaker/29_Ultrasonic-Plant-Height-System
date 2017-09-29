@@ -4,7 +4,7 @@
 #define SONIC_BUFFER_SIZE 30
 #define SONIC_EMIT_PIN 12
 #define SONIC_ECHO_PIN 13
-#define DEFAULT_MESSURES 20
+#define DEFAULT_MESSURES 10
 #define BUTTON_DELETE 6
 
 #define BUTTON_SELECT 7
@@ -23,11 +23,15 @@ void setup() {
 }
 
 void loop() {
-  int i;
+  bool save;
   lcd_print_measuring();
   float distance = sonic_sensor_meassure();
   
-  lcd_print_distance(distance);
+  save = lcd_print_distance(distance);
+  if(save){
+   Serial.print(distance);
+   Serial.print("\n");
+   }
   // put your main code here, to run repeatedly:
   
   delay(1000);

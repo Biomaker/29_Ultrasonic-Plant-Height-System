@@ -51,10 +51,12 @@ float lcd_get_baseline_height(){
   bool accepted = false;
   bool pressed = false;
   float value_cm;
+  int lcd_delay = MAX_DELAY;
   int lcd_key;
   char result[8]; // Buffer big enough for 7-character float
-  
+  lcd_print_measuring();
   value_cm = sonic_sensor_meassure();
+  sonic_sensor_print_reads();
   lcd.clear();
   lcd_print(0, "Baseline height");
   lcd_print(1, "          cm" );
@@ -62,15 +64,16 @@ float lcd_get_baseline_height(){
   lcd_print(1, result);
 
   while(!accepted){
+    
     lcd_key = lcd_read_button();
-    Serial.print("\n");
-    Serial.print(lcd_key);
-    //lcd_pressed_button();
     switch (lcd_key){
        case btnDELETE:{
+        lcd_print_measuring();
         value_cm = sonic_sensor_meassure();
+        sonic_sensor_print_reads();
         dtostrf(value_cm, 6, 2, result); 
         lcd_print(1, result);
+        delay(lcd_delay);
         break;
       }
       case btnSELECT:{
@@ -78,6 +81,7 @@ float lcd_get_baseline_height(){
         break;
       }
       case btnNONE:{
+         lcd_delay = MAX_DELAY;
         break;
       }
     } 
