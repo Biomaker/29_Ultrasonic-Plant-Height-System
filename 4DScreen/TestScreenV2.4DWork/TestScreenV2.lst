@@ -5278,7 +5278,7 @@ file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\ledDigitsDisplay.i
 005264  000019  var btnSendState;
 005265  000020  var btnPressed;
 005266  000021  var isTouched;
-005267  000022  var comRX[200];
+005267  000022  var comRX[1024];
 005268  000023  var comTX[200];
 005269  000024  var buffer[2];
 005270  000025  var format;
@@ -5286,7 +5286,7 @@ file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\ledDigitsDisplay.i
 005272  000027        
 005273  000028  func startupComm()
 005274  000029      com_Init(comRX,1024,0);
-005275  000030      com_SetBaud(COM0,960);
+005275  000030      com_SetBaud(COM0,11520);
 005276  000031      com_TXbuffer(comTX, 100, 0);
 005277  000032  endfunc
 005278  000033        
@@ -5320,49 +5320,60 @@ file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\ledDigitsDisplay.i
 005306  000061        
 005307  000062      img_Show(hndl, iledN);  // show all digits at 0, only do this once
 005308  000063      ledDigitsDisplay(n, iledN+1, 200, 3, 1, 36, 0) ;
-005309  000064      touch_Set(TOUCH_ENABLE);
+005309  000064        
 005310  000065        
-005311  000066  endfunc
-005312  000067        
-005313  000068  func increaseN()
-005314  000069      n := n+1;
-005315  000070      ledDigitsDisplay(n, iledN+1, 200, 3, 1,36, 0);
-005316  000071      sendIntSerial(n);
-005317  000072  endfunc
+005311  000066      // labelAVG 1.0 generated 16/09/2017 10:52:08
+005312  000067      img_Show(hndl,ilabelAVG) ;
+005313  000068        
+005314  000069        
+005315  000070      // Leddigits1 1.0 generated 16/09/2017 10:52:28
+005316  000071     // img_Show(hndl, iLeddigits1);  // show all digits at 0, only do this once
+005317  000072   //   ledDigitsDisplay(numx, iLeddigits1+1, 200, 5, 3, 24, 0) ;
 005318  000073        
-005319  000074  func setN( var val)
-005320  000075      n := val    ;
-005321  000076      ledDigitsDisplay(n, iledN+1, 200, 3, 1, 36, 0) ;
+005319  000074        
+005320  000075      touch_Set(TOUCH_ENABLE);
+005321  000076        
 005322  000077  endfunc
 005323  000078        
-005324  000079  func main()
-005325  000080        
-005326  000081   // Uncomment the following if uSD images, fonts or strings used.
-005327  000082   n:=0;
-005328  000083      putstr("Mounting...\n");
-005329  000084      if (!(file_Mount()))
-005330  000085          while(!(file_Mount()))
-005331  000086              putstr("Drive not mounted...");
-005332  000087              pause(200);
-005333  000088              gfx_Cls();
-005334  000089              pause(200);
-005335  000090          wend
-005336  000091      endif
-005337  000092        
-005338  000093      startupElements();
-005339  000094      startupComm();
-005340  000095      repeat
-005341  000096          isTouched := touch_Get(TOUCH_STATUS);
-005342  000097          if(isTouched == TOUCH_RELEASED  )
-005343  000098        
-005344  000099              btnPressed := img_Touched(hndl, iSend);
-005345  000100              if(btnPressed == iSend)
-005346  000101                 increaseN();
-005347  000102              endif
-005348  000103          endif
-005349  000104      forever
-005350  000105  endfunc
-005351  000106        
+005324  000079  func increaseN()
+005325  000080      n := n+1;
+005326  000081      ledDigitsDisplay(n, iledN+1, 200, 3, 1,36, 0);
+005327  000082      sendIntSerial(n);
+005328  000083  endfunc
+005329  000084        
+005330  000085  func setN( var val)
+005331  000086      n := val    ;
+005332  000087      ledDigitsDisplay(n, iledN+1, 200, 3, 1, 36, 0) ;
+005333  000088  endfunc
+005334  000089        
+005335  000090  func main()
+005336  000091        
+005337  000092   // Uncomment the following if uSD images, fonts or strings used.
+005338  000093   n:=0;
+005339  000094      putstr("Mounting...\n");
+005340  000095      if (!(file_Mount()))
+005341  000096          while(!(file_Mount()))
+005342  000097              putstr("Drive not mounted...");
+005343  000098              pause(200);
+005344  000099              gfx_Cls();
+005345  000100              pause(200);
+005346  000101          wend
+005347  000102      endif
+005348  000103        
+005349  000104      startupElements();
+005350  000105      startupComm();
+005351  000106      repeat
+005352  000107          isTouched := touch_Get(TOUCH_STATUS);
+005353  000108          if(isTouched == TOUCH_RELEASED  )
+005354  000109        
+005355  000110              btnPressed := img_Touched(hndl, iSend);
+005356  000111              if(btnPressed == iSend)
+005357  000112                 increaseN();
+005358  000113              endif
+005359  000114          endif
+005360  000115      forever
+005361  000116  endfunc
+005362  000117        
 Notice: no execution path to func 'setN'
 
 
@@ -5518,7 +5529,7 @@ BREAK                              65533  0x0000fffd (const dword)  (not used)
 BROWN                              41285  0x0000a145 (const dword)  (not used)
 btnPressed                            12  0x0000000c (mem) word (global)  (usage 6)
 btnSendState                          10  0x0000000a (mem) word (global)  (usage 6)
-buffer                               816  0x00000330 (mem) word[2] (global)  (usage 9)
+buffer                              2464  0x000009a0 (mem) word[2] (global)  (usage 9)
 BURLYWOOD                          56784  0x0000ddd0 (const dword)  (not used)
 bus_ClearPins                       -119  0xffffff89 (PmmC func) args[1] r=0  (not used)
 BUS_RD_PIN                             4  0x00000004 (const dword)  (not used)
@@ -5609,8 +5620,8 @@ com_TXbufferBrk                     -573  0xfffffdc3 (PmmC func) args[3] r=0  (n
 com_TXbufferHold                    -276  0xfffffeec (PmmC func) args[1] r=1  (not used)
 com_TXcount                         -268  0xfffffef4 (PmmC func) args[0] r=1  (not used)
 com_TXemptyEvent                    -272  0xfffffef0 (PmmC func) args[1] r=1  (not used)
-comRX                                 16  0x00000010 (mem) word[200] (global)  (usage 3)
-comTX                                416  0x000001a0 (mem) word[200] (global)  (usage 3)
+comRX                                 16  0x00000010 (mem) word[1024] (global)  (usage 3)
+comTX                               2064  0x00000810 (mem) word[200] (global)  (usage 3)
 CONTRAST                              25  0x00000019 (const dword)  (not used)
 CORAL                              64490  0x0000fbea (const dword)  (not used)
 CORNFLOWERBLUE                     25789  0x000064bd (const dword)  (not used)
@@ -5892,7 +5903,7 @@ FONT_9                                 9  0x00000009 (const dword)  (not used)
 FONT_ID                                2  0x00000002 (const dword)  (not used)
 FONT_SIZE                              2  0x00000002 (const dword)  (not used)
 FORESTGREEN                         9284  0x00002444 (const dword)  (not used)
-format                               820  0x00000334 (mem) word (global)  (usage 6)
+format                              2468  0x000009a4 (mem) word (global)  (usage 6)
 FRAME_DELAY                           22  0x00000016 (const dword)  (not used)
 FUCHSIA                            63519  0x0000f81f (const dword)  (not used)
 GAINSBORO                          57083  0x0000defb (const dword)  (not used)
@@ -6041,7 +6052,7 @@ HIbyte                               -48  0xffffffd0 (PmmC func) args[1] r=1  (n
 HIDE                                   2  0x00000002 (const dword)  (not used)
 hnd1                                   8  0x00000008 (mem) word (global)Notice: global var 'hnd1' is never used
   (not used)
-hndl                                   0  0x00000000 (mem) word (global)  (usage 30)
+hndl                                   0  0x00000000 (mem) word (global)  (usage 33)
 HONEYDEW                           63486  0x0000f7fe (const dword)  (not used)
 HOTPINK                            64342  0x0000fb56 (const dword)  (not used)
 hstrings                               4  0x00000004 (mem) word (global)  (usage 3)
@@ -6118,7 +6129,7 @@ I_X_LOCK                            1024  0x00000400 (const dword)  (not used)
 I_Y_LOCK                            2048  0x00000800 (const dword)  (not used)
 iiLeddigits1                           2  0x00000002 (const ??? 0)  (not used)
 iiledN                                 6  0x00000006 (const ??? 0)  (not used)
-ilabelAVG                              3  0x00000003 (const ??? 0)  (not used)
+ilabelAVG                              3  0x00000003 (const ??? 0)  (usage 3)
 ilabelN                                4  0x00000004 (const ??? 0)  (usage 3)
 iLeddigits1                            1  0x00000001 (const ??? 0)  (not used)
 iledN                                  5  0x00000005 (const ??? 0)  (usage 11)
@@ -6160,7 +6171,7 @@ img_SequentialRead                  -386  0xfffffe7e (PmmC func) args[2] r=1  (n
 img_SetAttributes                   -382  0xfffffe82 (PmmC func) args[3] r=1  (not used)
 img_SetPosition                     -374  0xfffffe8a (PmmC func) args[4] r=1  (not used)
 img_SetWord                         -379  0xfffffe85 (PmmC func) args[4] r=1  (usage 9)
-img_Show                            -381  0xfffffe83 (PmmC func) args[2] r=1  (usage 12)
+img_Show                            -381  0xfffffe83 (PmmC func) args[2] r=1  (usage 15)
 img_Touched                         -384  0xfffffe80 (PmmC func) args[2] r=1  (usage 3)
 IMG_WIDTH                             82  0x00000052 (const dword)  (not used)
 increaseN                            250  0x000000fa (User func) args[0] r=0  (usage 3)
@@ -6188,7 +6199,7 @@ LANDSCAPE_R                            1  0x00000001 (const dword)  (not used)
 LAVENDER                           59199  0x0000e73f (const dword)  (not used)
 LAVENDERBLUSH                      65438  0x0000ff9e (const dword)  (not used)
 LAWNGREEN                          32736  0x00007fe0 (const dword)  (not used)
-ledDigitsDisplay                     543  0x0000021f (User func) args[7] r=0  (usage 8)
+ledDigitsDisplay                     554  0x0000022a (User func) args[7] r=0  (usage 8)
 LEFT_POS                               2  0x00000002 (const dword)  (not used)
 LEMONCHIFFON                       65497  0x0000ffd9 (const dword)  (not used)
 LIGHTBLUE                          44764  0x0000aedc (const dword)  (not used)
@@ -6483,7 +6494,7 @@ SCREEN_MODE                           23  0x00000017 (const dword)  (usage 3)
 SEAGREEN                           11338  0x00002c4a (const dword)  (not used)
 SEASHELL                           65469  0x0000ffbd (const dword)  (not used)
 SEED                                 -61  0xffffffc3 (PmmC func) args[1] r=0  (not used)
-sendIntSerial                        449  0x000001c1 (User func) args[1] r=0  (usage 3)
+sendIntSerial                        459  0x000001cb (User func) args[1] r=0  (usage 3)
 serin                               -236  0xffffff14 (PmmC func) args[0] r=1  (not used)
 serin1                              -237  0xffffff13 (PmmC func) args[0] r=1  (not used)
 serin2                              -238  0xffffff12 (PmmC func) args[0] r=1  (not used)
@@ -6599,7 +6610,7 @@ spiflash_SIG                        -538  0xfffffde6 (PmmC func) args[2] r=1  (n
 spiflash_Write                      -544  0xfffffde0 (PmmC func) args[4] r=1  (not used)
 SPRINGGREEN                         2031  0x000007ef (const dword)  (not used)
 SQRT                                 -62  0xffffffc2 (PmmC func) args[1] r=1  (not used)
-startupComm                          505  0x000001f9 (User func) args[0] r=0  (usage 3)
+startupComm                          515  0x00000203 (User func) args[0] r=0  (usage 3)
 startupElements                      291  0x00000123 (User func) args[0] r=0  (usage 3)
 STEELBLUE                          17430  0x00004416 (const dword)  (not used)
 STR                                  128  0x00000080 (const dword)  (not used)

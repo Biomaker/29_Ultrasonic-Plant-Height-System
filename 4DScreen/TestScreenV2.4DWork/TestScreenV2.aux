@@ -2,7 +2,7 @@
 ==============================================================
 4DGL Compiler 2.8.1.0 -- Copyright 2004-2016 4D Labs
 ** F:\Documents\public_code\29_Ultrasonic-Plant-Height-System\4DScreen\TestScreenV2.4dg
-compiled Sat Sep 09 10:24:21 2017
+compiled Sat Sep 16 11:01:45 2017
 
 ==============================================================
 ==============================================================
@@ -21,15 +21,15 @@ function 5, increaseN, address 0xfa, stack usage 0 + 4
 function 4, startupElements, address 0x123, stack usage 0 + 4 
 
 [LINKING]
-function 3, sendIntSerial, address 0x1c1, stack usage 2 + 4 
+function 3, sendIntSerial, address 0x1cb, stack usage 2 + 4 
 p                                      1  word     [local]  (usage 6)
 number                                 1  word     [arg]  (usage 3)
 
 [LINKING]
-function 2, startupComm, address 0x1f9, stack usage 0 + 4 
+function 2, startupComm, address 0x203, stack usage 0 + 4 
 
 [LINKING]
-function 1, ledDigitsDisplay, address 0x21f, stack usage 14 + 4 
+function 1, ledDigitsDisplay, address 0x22a, stack usage 14 + 4 
 num                                    4  word[4]  [local]  (usage 6)
 newval                                 1  word     [arg]  (usage 3)
 Digits                                 2  word     [arg]  (usage 9)
@@ -109,6 +109,7 @@ __MAXPROG                         00007FEE      32750  (usage 1)
 COM0                              0000F804      63492  (usage 6)
 DIABLO                            00000003          3  (usage 3)
 I_TOUCH_DISABLE                   00000020         32  (usage 3)
+ilabelAVG                         00000003          3  (usage 3)
 ilabelN                           00000004          4  (usage 3)
 iledN                             00000005          5  (usage 11)
 IMAGE_INDEX                       00000009          9  (usage 6)
@@ -131,7 +132,7 @@ gfx_Cls                           FFFFFF82        -126  args=0 r=0  (usage 6)
 gfx_Set                           FFFFFF83        -125  args=2 r=0  (usage 3)
 img_ClearAttributes               FFFFFE81        -383  args=3 r=1  (usage 3)
 img_SetWord                       FFFFFE85        -379  args=4 r=1  (usage 9)
-img_Show                          FFFFFE83        -381  args=2 r=1  (usage 12)
+img_Show                          FFFFFE83        -381  args=2 r=1  (usage 15)
 img_Touched                       FFFFFE80        -384  args=2 r=1  (usage 3)
 pause                             FFFFFFFA          -6  args=1 r=0  (usage 6)
 putnum                            FFFFFFF9          -7  args=2 r=1  (usage 3)
@@ -145,20 +146,20 @@ touch_Set                         FFFFFE69        -407  args=1 r=0  (usage 3)
 
 [USER FUNCTIONS]
 increaseN                         000000FA  args=0 r=0  (usage 3)
-ledDigitsDisplay                  0000021F  args=7 r=0  (usage 8)
-sendIntSerial                     000001C1  args=1 r=0  (usage 3)
-startupComm                       000001F9  args=0 r=0  (usage 3)
+ledDigitsDisplay                  0000022A  args=7 r=0  (usage 8)
+sendIntSerial                     000001CB  args=1 r=0  (usage 3)
+startupComm                       00000203  args=0 r=0  (usage 3)
 startupElements                   00000123  args=0 r=0  (usage 3)
 
 [GLOBAL VARIABLES]
 btnPressed                             7  word       (usage 6)
 btnSendState                           6  word       (usage 6)
-buffer                               409  word[2]   (usage 9)
-comRX                                  9  word[200]   (usage 3)
-comTX                                209  word[200]   (usage 3)
-format                               411  word       (usage 6)
+buffer                              1233  word[2]   (usage 9)
+comRX                                  9  word[1024]   (usage 3)
+comTX                               1033  word[200]   (usage 3)
+format                              1235  word       (usage 6)
 hFontx                                 4  word       (usage 3)
-hndl                                   1  word       (usage 30)
+hndl                                   1  word       (usage 33)
 hstrings                               3  word       (usage 3)
 isTouched                              8  word       (usage 6)
 n                                      2  word       (usage 22)
@@ -183,9 +184,9 @@ n                                      2  word       (usage 22)
 [PROGRAM]
 main
 [CODESIZE]
-718
+729
 [MEMSIZE]
-411
+1235
 [ARGCOUNT]
 0
 [RETURNS]
