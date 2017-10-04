@@ -4,7 +4,7 @@
 
 ## Synopsis
 Plant height is a key trait studied in breeding and research programs. Measurements in the field are time-consuming as they require manual measurements with several replicates.  The UPHS is a phenotyping device that provides a significant improvement in sampling time and sample size. It uses low-cost ultrasonic sensors to screen the field canopy and obtain an accurate biological sample of this trait.
-![UPHS gif](Images/UPHS.gif)
+![UPHS gif](Images/Wheat-height.gif)
 
 ## Software
 TBA
