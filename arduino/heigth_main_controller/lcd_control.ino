@@ -148,6 +148,10 @@ bool lcd_print_distance(float distance){
   return result;
 }
 
+void lcd_set_color(int r, int g,int b){
+lcd.setRGB(r, g, b);  
+}
+
 void lcd_gyro_calibrate(){
   bool accepted = false;
   bool pressed = false;
@@ -166,7 +170,7 @@ void lcd_gyro_calibrate(){
         break;
       }
       case btnSELECT:{
-        accepted=true;
+        accepted=true ;
         lcd.clear();
         lcd_print(0, "Calibrating");
         lcd_print(1, "gyroscope" );

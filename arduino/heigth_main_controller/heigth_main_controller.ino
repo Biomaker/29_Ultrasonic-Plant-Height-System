@@ -27,13 +27,14 @@ void setup() {
 void loop() {
   bool save;
   lcd_print_measuring();
-  float distance = sonic_sensor_meassure();
+  gyro_set_screen_color();
+  //float distance = sonic_sensor_meassure();
   
-  save = lcd_print_distance(distance);
-  if(save){
-   Serial.print(distance);
-   Serial.print("\n");
-   }
+  //save = lcd_print_distance(distance);
+  //if(save){
+  // Serial.print(distance);
+  // Serial.print("\n");
+   //}
   // put your main code here, to run repeatedly:
   
   delay(1000);
