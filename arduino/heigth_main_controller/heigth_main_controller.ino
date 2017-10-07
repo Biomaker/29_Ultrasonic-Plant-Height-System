@@ -8,17 +8,18 @@
 #define BUTTON_DELETE 6
 #define SPEAKER_PIN 3
 #define BUTTON_SELECT 7
-#define DEFAULT_HEIGTH 5
+
 
 void setup() {
   // put your setup code here, to run once:
-   Serial.begin(9600);
+  Serial.begin(9600);
   sonic_sensor_setup(0, SONIC_EMIT_PIN, SONIC_ECHO_PIN);
   sonic_sensor_set_offset(0);
   button_setup( BUTTON_DELETE);
   button_setup( BUTTON_SELECT);
   speaker_setup();
   lcd_setup();
+  gyro_setup();
   lcd_get_baseline_height();
   
 }

@@ -80,6 +80,7 @@ float lcd_get_baseline_height(){
         value_cm = sonic_sensor_meassure();
         //sonic_sensor_print_reads();
         dtostrf(value_cm, 6, 2, result); 
+        lcd.clear();
         lcd_print(0, "Baseline height");
         lcd_print(1, result);
         delay(lcd_delay);
@@ -145,4 +146,38 @@ bool lcd_print_distance(float distance){
   lcd.print(distance);
 
   return result;
+}
+
+void lcd_gyro_calibrate(){
+  bool accepted = false;
+  bool pressed = false;
+  int lcd_delay = MAX_DELAY;
+  int lcd_key;
+  
+  lcd.clear();
+  lcd_print(0, "Put the bar horizontally");
+  lcd_print(1, "and press up" );
+  
+  while(!accepted){
+    
+    lcd_key = lcd_read_button();
+    switch (lcd_key){
+       case btnDELETE:{
+        break;
+      }
+      case btnSELECT:{
+        accepted=true;
+        lcd.clear();
+        lcd_print(0, "Calibrating");
+        lcd_print(1, "gyroscope" );
+        gyro.zeroCalibrate(200,10);//sample 200 times to calibrate and it will take 200*10ms 
+        break;
+      }
+      case btnNONE:{
+         lcd_delay = MAX_DELAY;
+        break;
+      }
+    } 
+  }
+  return;
 }
