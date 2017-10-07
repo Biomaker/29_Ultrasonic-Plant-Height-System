@@ -6,7 +6,7 @@
 #define SONIC_ECHO_PIN 13
 #define DEFAULT_MESSURES 10
 #define BUTTON_DELETE 6
-
+#define SPEAKER_PIN 3
 #define BUTTON_SELECT 7
 #define DEFAULT_HEIGTH 5
 
@@ -17,6 +17,7 @@ void setup() {
   sonic_sensor_set_offset(0);
   button_setup( BUTTON_DELETE);
   button_setup( BUTTON_SELECT);
+  speaker_setup();
   lcd_setup();
   lcd_get_baseline_height();
   

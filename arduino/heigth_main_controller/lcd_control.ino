@@ -3,7 +3,7 @@ rgb_lcd lcd;
 #define MAX_DELAY 100
 
 
-#define btnDELETE    1
+#define btnDELETE 1
 #define btnSELECT 4
 #define btnNONE   5
 #define MIN_HEIGHT 500
@@ -42,8 +42,16 @@ void lcd_print_measuring(){
 
 int lcd_read_button(){
   
-  if(button_is_pressed(BUTTON_DELETE   ) ) return btnDELETE;
-  if(button_is_pressed(BUTTON_SELECT) ) return btnSELECT;
+  if(button_is_pressed(BUTTON_DELETE   ) ) {
+    speaker_play_note('e', 200);
+    speaker_play_note('c', 200);
+    return btnDELETE;
+  }
+  if(button_is_pressed(BUTTON_SELECT) ) {
+    speaker_play_note('c', 200);
+    speaker_play_note('e', 200);
+    return btnSELECT;
+  }
   return btnNONE;  // when all others fail, return this...
 }
 
@@ -72,6 +80,7 @@ float lcd_get_baseline_height(){
         value_cm = sonic_sensor_meassure();
         //sonic_sensor_print_reads();
         dtostrf(value_cm, 6, 2, result); 
+        lcd_print(0, "Baseline height");
         lcd_print(1, result);
         delay(lcd_delay);
         break;
