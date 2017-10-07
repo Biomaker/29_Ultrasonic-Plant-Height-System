@@ -43,7 +43,6 @@ float sonic_sensor_meassure(){
     sonic_sensor_read(0);
     delay(200);
   }
-  sonic_sensor_print_reads();
   return sonic_sensor_average();
 }
 

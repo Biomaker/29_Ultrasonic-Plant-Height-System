@@ -56,7 +56,7 @@ float lcd_get_baseline_height(){
   char result[8]; // Buffer big enough for 7-character float
   lcd_print_measuring();
   value_cm = sonic_sensor_meassure();
-  sonic_sensor_print_reads();
+  //sonic_sensor_print_reads();
   lcd.clear();
   lcd_print(0, "Baseline height");
   lcd_print(1, "          cm" );
@@ -70,7 +70,7 @@ float lcd_get_baseline_height(){
        case btnDELETE:{
         lcd_print_measuring();
         value_cm = sonic_sensor_meassure();
-        sonic_sensor_print_reads();
+        //sonic_sensor_print_reads();
         dtostrf(value_cm, 6, 2, result); 
         lcd_print(1, result);
         delay(lcd_delay);
