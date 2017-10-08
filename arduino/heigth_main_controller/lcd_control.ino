@@ -37,19 +37,40 @@ void lcd_print_waiting(){
 
 void lcd_print_measuring(){
   lcd.clear();
+  lcd_set_busy_color();
   lcd_print(0, "Measuring...");
 }
 
+void lcd_set_ok_color(){
+  lcd_set_color(66,84,21); 
+}
+
+void lcd_set_nok_color(){
+  lcd_set_color(216,48,32); 
+}
+
+void lcd_set_busy_color(){
+  lcd_set_color(236,195,77); 
+}
+
+void lcd_set_neutral_color(){
+  lcd_set_color(255,255,255);
+}
+
+
 int lcd_read_button(){
-  
   if(button_is_pressed(BUTTON_DELETE   ) ) {
+    lcd_set_nok_color();
     speaker_play_note('e', 200);
     speaker_play_note('c', 200);
+    lcd_set_neutral_color();
     return btnDELETE;
   }
   if(button_is_pressed(BUTTON_SELECT) ) {
+    lcd_set_ok_color();
     speaker_play_note('c', 200);
     speaker_play_note('e', 200);
+    lcd_set_neutral_color();
     return btnSELECT;
   }
   return btnNONE;  // when all others fail, return this...
@@ -149,7 +170,7 @@ bool lcd_print_distance(float distance){
 }
 
 void lcd_set_color(int r, int g,int b){
-lcd.setRGB(r, g, b);  
+  lcd.setRGB(r, g, b);  
 }
 
 void lcd_gyro_calibrate(){
@@ -159,8 +180,8 @@ void lcd_gyro_calibrate(){
   int lcd_key;
   
   lcd.clear();
-  lcd_print(0, "Put the bar horizontally");
-  lcd_print(1, "and press up" );
+  lcd_print(0, "keep the bar");
+  lcd_print(1, "still & press up" );
   
   while(!accepted){
     
@@ -172,6 +193,7 @@ void lcd_gyro_calibrate(){
       case btnSELECT:{
         accepted=true ;
         lcd.clear();
+        lcd_set_busy_color();
         lcd_print(0, "Calibrating");
         lcd_print(1, "gyroscope" );
         gyro.zeroCalibrate(200,10);//sample 200 times to calibrate and it will take 200*10ms 
