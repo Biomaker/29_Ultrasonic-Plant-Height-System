@@ -38,12 +38,13 @@ float read_distance_cm(int trigger, int echo){
 
 float sonic_sensor_meassure(){
   int i;
+   lcd_set_busy_color();
   sonic_sensor_clear_buffer();
   for(i = 0; i < DEFAULT_MESSURES; i ++){
     sonic_sensor_read(0);
     delay(200);
   }
-  sonic_sensor_print_reads();
+  lcd_set_neutral_color();
   return sonic_sensor_average();
 }
 

@@ -3,7 +3,7 @@ rgb_lcd lcd;
 #define MAX_DELAY 100
 
 
-#define btnDELETE    1
+#define btnDELETE 1
 #define btnSELECT 4
 #define btnNONE   5
 #define MIN_HEIGHT 500
@@ -37,13 +37,42 @@ void lcd_print_waiting(){
 
 void lcd_print_measuring(){
   lcd.clear();
+  lcd_set_busy_color();
   lcd_print(0, "Measuring...");
 }
 
+void lcd_set_ok_color(){
+  lcd_set_color(66,84,21); 
+}
+
+void lcd_set_nok_color(){
+  lcd_set_color(216,48,32); 
+}
+
+void lcd_set_busy_color(){
+  lcd_set_color(236,195,77); 
+}
+
+void lcd_set_neutral_color(){
+  lcd_set_color(255,255,255);
+}
+
+
 int lcd_read_button(){
-  
-  if(button_is_pressed(BUTTON_DELETE   ) ) return btnDELETE;
-  if(button_is_pressed(BUTTON_SELECT) ) return btnSELECT;
+  if(button_is_pressed(BUTTON_DELETE   ) ) {
+    lcd_set_nok_color();
+    speaker_play_note('e', 200);
+    speaker_play_note('c', 200);
+    lcd_set_neutral_color();
+    return btnDELETE;
+  }
+  if(button_is_pressed(BUTTON_SELECT) ) {
+    lcd_set_ok_color();
+    speaker_play_note('c', 200);
+    speaker_play_note('e', 200);
+    lcd_set_neutral_color();
+    return btnSELECT;
+  }
   return btnNONE;  // when all others fail, return this...
 }
 
@@ -56,7 +85,7 @@ float lcd_get_baseline_height(){
   char result[8]; // Buffer big enough for 7-character float
   lcd_print_measuring();
   value_cm = sonic_sensor_meassure();
-  sonic_sensor_print_reads();
+  //sonic_sensor_print_reads();
   lcd.clear();
   lcd_print(0, "Baseline height");
   lcd_print(1, "          cm" );
@@ -70,8 +99,10 @@ float lcd_get_baseline_height(){
        case btnDELETE:{
         lcd_print_measuring();
         value_cm = sonic_sensor_meassure();
-        sonic_sensor_print_reads();
+        //sonic_sensor_print_reads();
         dtostrf(value_cm, 6, 2, result); 
+        lcd.clear();
+        lcd_print(0, "Baseline height");
         lcd_print(1, result);
         delay(lcd_delay);
         break;
@@ -136,4 +167,43 @@ bool lcd_print_distance(float distance){
   lcd.print(distance);
 
   return result;
+}
+
+void lcd_set_color(int r, int g,int b){
+  lcd.setRGB(r, g, b);  
+}
+
+void lcd_gyro_calibrate(){
+  bool accepted = false;
+  bool pressed = false;
+  int lcd_delay = MAX_DELAY;
+  int lcd_key;
+  
+  lcd.clear();
+  lcd_print(0, "keep the bar");
+  lcd_print(1, "still & press up" );
+  
+  while(!accepted){
+    
+    lcd_key = lcd_read_button();
+    switch (lcd_key){
+       case btnDELETE:{
+        break;
+      }
+      case btnSELECT:{
+        accepted=true ;
+        lcd.clear();
+        lcd_set_busy_color();
+        lcd_print(0, "Calibrating");
+        lcd_print(1, "gyroscope" );
+        gyro.zeroCalibrate(200,10);//sample 200 times to calibrate and it will take 200*10ms 
+        break;
+      }
+      case btnNONE:{
+         lcd_delay = MAX_DELAY;
+        break;
+      }
+    } 
+  }
+  return;
 }
