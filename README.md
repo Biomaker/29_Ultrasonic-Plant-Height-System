@@ -11,6 +11,7 @@ TBA
 
 ## Hardware
 The UHPS will use an Arduino microcontroller and ultrasonic sensors to acquire plant height data. The ultrasonic sensor will emit a sound wave that will bounce back from the canopy. An initial read or manual input can be used as baseline (sensor height from the ground). This will be possible using a screen and at least three buttons. Once height zero is stored, we can calculate height from each data point and average a value from hundreds of data points collected in just a few seconds.
+![diagram](Images/Diagram.png)
 
 ## Installation, Maintenance and Testing Guide
 TBA
