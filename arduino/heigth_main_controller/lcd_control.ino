@@ -25,6 +25,12 @@ void lcd_setup(){
   
 }
 
+void lcd_print_horizontal_count(int count){
+  lcd.clear();
+  lcd_print(0, "Still...");
+  lcd_print_int_as_float(count);
+}
+
 
 void lcd_print_processing(){
   lcd.clear();
@@ -33,8 +39,8 @@ void lcd_print_processing(){
 
 void lcd_print_waiting(){
   lcd.clear();
-  lcd_print(0,"Press the");
-  lcd_print(1, "red button");
+  lcd_print(0, "Waiting for");
+  lcd_print(1, "horizontal bar ");
 }
 
 void lcd_print_measuring(){

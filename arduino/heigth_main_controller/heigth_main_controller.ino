@@ -8,7 +8,14 @@
 #define BUTTON_DELETE 6
 #define SPEAKER_PIN 3
 #define BUTTON_SELECT 7
+#define TILT_SWITCH 2
 
+#define TILT_DELAY 200
+#define TILT_REPEAT 10
+
+#define MAX_TOTAL_MOVMENT 60
+
+bool refresh;
 
 void setup() {
   // put your setup code here, to run once:
@@ -17,15 +24,40 @@ void setup() {
   sonic_sensor_set_offset(0);
   button_setup( BUTTON_DELETE);
   button_setup( BUTTON_SELECT);
+  button_setup( TILT_SWITCH);
   speaker_setup();
   lcd_setup();
   gyro_setup();
+  refresh=true;
   //lcd_get_baseline_height();
   lcd_get_sensor_height(50);
 }
 
+
+bool is_horizontal(){
+  for(int i = TILT_REPEAT; i--; i > 0){
+    if(!button_is_pressed(TILT_SWITCH) || 
+    !gyro_is_still(MAX_TOTAL_MOVMENT)  ){
+       return false;
+    }
+    refresh=true;
+    delay(TILT_DELAY);
+    lcd_print_horizontal_count(i* 10); 
+  }
+  return true;
+}
+
 void loop() {
   bool save;
+  if(refresh){
+    lcd_print_waiting();
+    refresh = false;
+  }
+
+  if(!is_horizontal()){
+    return;
+  }
+  
   lcd_print_measuring();
   //gyro_set_screen_color();
   float distance = sonic_sensor_meassure();
