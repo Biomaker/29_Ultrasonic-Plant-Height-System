@@ -20,8 +20,8 @@ void setup() {
   speaker_setup();
   lcd_setup();
   gyro_setup();
-  lcd_get_baseline_height();
-  
+  //lcd_get_baseline_height();
+  lcd_get_sensor_height(50);
 }
 
 void loop() {

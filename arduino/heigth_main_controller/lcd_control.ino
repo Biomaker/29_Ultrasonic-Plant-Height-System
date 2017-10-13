@@ -6,8 +6,10 @@ rgb_lcd lcd;
 #define btnDELETE 1
 #define btnSELECT 4
 #define btnNONE   5
-#define MIN_HEIGHT 500
-#define MAX_HEIGHT 2000
+#define MIN_HEIGHT 0
+#define MAX_HEIGHT 100
+
+bool sound=false;
 
 void lcd_print(int line, const char * text){
   lcd.setCursor(0, line);
@@ -61,20 +63,73 @@ void lcd_set_neutral_color(){
 int lcd_read_button(){
   if(button_is_pressed(BUTTON_DELETE   ) ) {
     lcd_set_nok_color();
-    speaker_play_note('e', 200);
-    speaker_play_note('c', 200);
+    if(sound){
+      speaker_play_note('e', 200);
+      speaker_play_note('c', 200);
+    }
     lcd_set_neutral_color();
     return btnDELETE;
   }
   if(button_is_pressed(BUTTON_SELECT) ) {
     lcd_set_ok_color();
-    speaker_play_note('c', 200);
-    speaker_play_note('e', 200);
+    if(sound){
+      speaker_play_note('c', 200);
+      speaker_play_note('e', 200);
+    }
     lcd_set_neutral_color();
     return btnSELECT;
   }
   return btnNONE;  // when all others fail, return this...
 }
+
+
+float lcd_get_sensor_height(int default_height){
+  bool accepted = false;
+  bool pressed = false;
+  int value_cm = default_height;
+  int lcd_delay = MAX_DELAY;
+  lcd.clear();
+  int lcd_key;
+  
+  lcd_print(0,"Sensor height");
+  lcd_print(1, "          cm" );
+  lcd_print_int_as_float(value_cm);
+  int steps = 0; 
+  int previous = 0;
+  sound = false;
+  while(!accepted){
+    previous = value_cm;
+    lcd_key = lcd_read_button();
+    //lcd_pressed_button();
+    switch (lcd_key){
+      case btnDELETE:{
+        value_cm -= steps > 10? 10:1;
+        if(value_cm < MIN_HEIGHT){
+          value_cm = MAX_HEIGHT;
+        }
+        steps++;
+        break;
+      }
+      case btnSELECT:{
+        accepted=true;
+        break;
+      }
+      case btnNONE:{
+        lcd_delay = MAX_DELAY;
+        steps = 0;
+        break;
+      }
+    } 
+    if(value_cm != previous){
+       lcd_print_int_as_float(value_cm);
+    } 
+    delay(lcd_delay);
+  }
+  sound = true;
+  return (float)value_cm/10.0;
+}
+
+
 
 float lcd_get_baseline_height(){
   bool accepted = false;
