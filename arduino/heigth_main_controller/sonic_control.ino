@@ -43,6 +43,9 @@ float sonic_sensor_meassure(){
   for(i = 0; i < DEFAULT_MESSURES; i ++){
     sonic_sensor_read(0);
     delay(200);
+    if(!gyro_is_still(MAX_TOTAL_MOVMENT)){
+      return -1;
+    }
   }
   lcd_set_neutral_color();
   return sonic_sensor_average();
