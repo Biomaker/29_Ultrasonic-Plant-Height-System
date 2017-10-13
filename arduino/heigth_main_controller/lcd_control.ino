@@ -41,6 +41,14 @@ void lcd_print_waiting(){
   lcd.clear();
   lcd_print(0, "Waiting for");
   lcd_print(1, "horizontal bar ");
+  lcd_set_neutral_color();
+}
+
+void lcd_print_moved(){
+  lcd.clear();
+  lcd_print(0, "Bar moved while");
+  lcd_print(1, "messuring.");
+  lcd_set_nok_color();
 }
 
 void lcd_print_measuring(){

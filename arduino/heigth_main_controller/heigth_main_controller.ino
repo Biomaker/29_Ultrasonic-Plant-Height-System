@@ -36,12 +36,12 @@ void setup() {
 
 bool is_horizontal(){
   for(int i = TILT_REPEAT; i--; i > 0){
+    delay(TILT_DELAY);
     if(!button_is_pressed(TILT_SWITCH) || 
     !gyro_is_still(MAX_TOTAL_MOVMENT)  ){
        return false;
     }
     refresh=true;
-    delay(TILT_DELAY);
     lcd_print_horizontal_count(i* 10); 
   }
   return true;
@@ -61,6 +61,13 @@ void loop() {
   lcd_print_measuring();
   //gyro_set_screen_color();
   float distance = sonic_sensor_meassure();
+
+  if(distance < 0){
+    lcd_print_moved();
+    delay(1000);
+    refresh = true;
+    return;
+  }
   
   save = lcd_print_distance(distance);
   if(save){
