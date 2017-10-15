@@ -39,8 +39,8 @@ void lcd_print_processing(){
 
 void lcd_print_waiting(){
   lcd.clear();
-  lcd_print(0, "Waiting for");
-  lcd_print(1, "horizontal bar ");
+  lcd_print(0, "Keep the bar");
+  lcd_print(1, "still");
   lcd_set_neutral_color();
 }
 
@@ -104,7 +104,7 @@ float lcd_get_sensor_height(int default_height){
   int lcd_delay = MAX_DELAY;
   lcd.clear();
   int lcd_key;
-  
+  lcd_set_neutral_color();
   lcd_print(0,"Sensor height");
   lcd_print(1, "          cm" );
   lcd_print_int_as_float(value_cm);
@@ -205,6 +205,9 @@ bool lcd_print_distance(float distance){
   bool readed = false;
   bool result = false;
   int lcd_key;
+  speaker_play_note('c', 200);
+  delay(20);
+  speaker_play_note('c', 200);
   lcd.clear();
   lcd.print("Save? ");
   lcd.print(distance); 
